@@ -1,0 +1,43 @@
+.indicator__thread{
+    background-color: #EDEDED;
+    width: calc(100% - 26px + -8px);
+    height: 2.5px;
+    margin-left: 26px;
+    border-radius: 12px 0 0 12px;
+}
+.step{
+    width: 100%;
+}
+.indicator__step1{
+    width: 0;
+}
+.indicator__step2{
+    width: calc(1 * 100% / 3 + 12px);
+}
+.indicator__step3{
+    width: calc(2 * 100% / 3 + 15px);
+}
+.indicator__step4{
+    width: calc(3 * 100% / 3);
+}
+.active__indicator{
+    color: #4406EC;
+    font-weight: 500;
+}
+.current__indicator{
+    color: #636166;
+    font-weight: 500;
+}
+.inactive__indicator{
+    color: #B7B7B7;
+    font-weight: 500;
+}
+.indicator__circle{
+    background-color: #636166;
+    width: 6px;
+    height: 6px;
+}
+.indicator__inner__thread{
+    background: linear-gradient(90deg, #4305EB 64.83%, #636166 99.42%);
+    border-radius: 12px 0 0 12px;
+}
