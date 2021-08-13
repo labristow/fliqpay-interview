@@ -30,20 +30,20 @@ function FormWrap(props) {
                 transaction = {
                     "amountToSend": Number(amountToSend).toFixed(2),
                     "currencyToSend": senderCurrency,
-                    "amountToReceive": Number(amountToSend - (3.69 * amountToSend)).toFixed(2),
+                    "amountToReceive": Number(amountToSend - (3.69 * amountToSend)/100).toFixed(2),
                     "currencyToReceive": receiverCurrency,
                     "transfer_fee": Number(3.69 * amountToSend / 100).toFixed(2),
-                    "converted_amount": Number(0.72 * (amountToSend - (3.69 * amountToSend))).toFixed(2),
+                    "converted_amount": Number(0.72 * (amountToSend - (3.69 * amountToSend)/100)).toFixed(2),
                     "guaranteed_rate": Number(3.69).toFixed(2)
                 };
             } else if (senderCurrency === "EUR") {
                 transaction = {
                     "amountToSend": Number(amountToSend).toFixed(2),
                     "currencyToSend": senderCurrency,
-                    "amountToReceive": Number(amountToSend - (3.69 * amountToSend)).toFixed(2),
+                    "amountToReceive": Number(amountToSend - (3.69 * amountToSend)/100).toFixed(2),
                     "currencyToReceive": receiverCurrency,
                     "transfer_fee": Number(1.38 * amountToSend / 100).toFixed(2),
-                    "converted_amount": Number(0.72 * (amountToSend - (3.69 * amountToSend))).toFixed(2),
+                    "converted_amount": Number(0.72 * (amountToSend - (3.69 * amountToSend)/100)).toFixed(2),
                     "guaranteed_rate": Number(3.69).toFixed(2)
                 };
             }
