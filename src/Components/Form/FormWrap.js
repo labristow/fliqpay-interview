@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../../styles/FormWrap.css';
 import Input from './Input';
 import Input2 from './Input2';
-import axios from 'axios';
+// import axios from 'axios';
 
 function FormWrap(props) {
     const [isEurope, setIsEurope] = useState(true);
@@ -22,11 +22,11 @@ function FormWrap(props) {
     }
     const setAmount = (amountToSend) => {
         setAmountToSend(amountToSend);
-        const BASE = senderCurrency;
-        const SYMBOL = receiverCurrency + ", NGN";
+        // const BASE = senderCurrency;
+        // const SYMBOL = receiverCurrency + ", NGN";
         let transaction;
         function fetchAndConvert() {
-            if (senderCurrency == "USD") {
+            if (senderCurrency === "USD") {
                 transaction = {
                     "amountToSend": Number(amountToSend).toFixed(2),
                     "currencyToSend": senderCurrency,
@@ -36,7 +36,7 @@ function FormWrap(props) {
                     "converted_amount": Number(0.72 * (amountToSend - (3.69 * amountToSend))).toFixed(2),
                     "guaranteed_rate": Number(3.69).toFixed(2)
                 };
-            } else if (senderCurrency == "EUR") {
+            } else if (senderCurrency === "EUR") {
                 transaction = {
                     "amountToSend": Number(amountToSend).toFixed(2),
                     "currencyToSend": senderCurrency,
@@ -48,6 +48,7 @@ function FormWrap(props) {
                 };
             }
         }
+        fetchAndConvert();
         setTransaction(transaction);
         document.getElementById("receivedAmount").value = transaction.converted_amount;
         document.getElementById("continue1").classList.remove("inactive")
