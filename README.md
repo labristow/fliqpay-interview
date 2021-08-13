@@ -1,2 +1,2 @@
-# Talos-Admin
-Talos Admin
+# Fliqpay
+Fliqpay

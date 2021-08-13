@@ -26,7 +26,7 @@ function FormWrap(props) {
         const BASE = senderCurrency;
         const SYMBOL = receiverCurrency + ", NGN";
         let transaction;
-        let endpoint = "http://data.fixer.io/api/latest?access_key=" + API_KEY + "&base=" + BASE + "&symbols=" + SYMBOL;
+        let endpoint = "https://data.fixer.io/api/latest?access_key=" + API_KEY + "&base=" + BASE + "&symbols=" + SYMBOL;
         axios.get(endpoint).then(res => {
             console.log(res.data);
             console.log("Base Currency: " + BASE)
