@@ -30,7 +30,7 @@ function FormWrap(props) {
         axios.get(endpoint).then(res => {
             console.log(res.data);
             console.log("Base Currency: " + BASE)
-            if (res.data.success === true) {
+            if (res.data || res.data.success === true) {
                 switch (receiverCurrency) {
                     case "USD":
                         transaction = {
