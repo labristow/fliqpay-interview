@@ -22,46 +22,72 @@ function FormWrap(props) {
     }
     const setAmount = (amountToSend) => {
         setAmountToSend(amountToSend);
-        const API_KEY = "6f8d4189f220a5b91ac50bbcc743e58e";
         const BASE = senderCurrency;
         const SYMBOL = receiverCurrency + ", NGN";
         let transaction;
-        let endpoint = "https://data.fixer.io/api/latest?access_key=" + API_KEY + "&base=" + BASE + "&symbols=" + SYMBOL;
-        axios.get(endpoint).then(res => {
-            console.log(res.data);
-            console.log("Base Currency: " + BASE)
-            if (res.data || res.data.success === true) {
-                switch (receiverCurrency) {
-                    case "USD":
-                        transaction = {
-                            "amountToSend": Number(amountToSend).toFixed(2),
-                            "currencyToSend": senderCurrency,
-                            "amountToReceive": Number(amountToSend - (0.369 * amountToSend / 100)).toFixed(2),
-                            "currencyToReceive": receiverCurrency,
-                            "transfer_fee": Number(0.369 * amountToSend / 100).toFixed(2),
-                            "converted_amount": Number(res.data.rates.USD * (amountToSend - (0.369 * amountToSend / 100))).toFixed(2),
-                            "guaranteed_rate": Number(3.69).toFixed(2)
-                        };
-                        break;
-                    case "EUR":
-                        transaction = {
-                            "amountToSend": amountToSend,
-                            "currencyToSend": senderCurrency,
-                            "amountToReceive": amountToSend - (0.369 * amountToSend / 100),
-                            "currencyToReceive": receiverCurrency,
-                            "transfer_fee": 0.369 * amountToSend / 100,
-                            "converted_amount": res.data.rates.EUR * amountToSend - (0.369 * amountToSend / 100),
-                            "guaranteed_rate": 3.69
-                        };
-                        break;
-                    default:
-                        break;
-                }
-                setTransaction(transaction);
-                document.getElementById("receivedAmount").value = transaction.converted_amount;
-                document.getElementById("continue1").classList.remove("inactive")
+        function fetchAndConvert() {
+            if (senderCurrency == "USD") {
+                transaction = {
+                    "amountToSend": Number(amountToSend).toFixed(2),
+                    "currencyToSend": senderCurrency,
+                    "amountToReceive": Number(amountToSend - (3.69 * amountToSend)).toFixed(2),
+                    "currencyToReceive": receiverCurrency,
+                    "transfer_fee": Number(3.69 * amountToSend / 100).toFixed(2),
+                    "converted_amount": Number(0.72 * (amountToSend - (3.69 * amountToSend))).toFixed(2),
+                    "guaranteed_rate": Number(3.69).toFixed(2)
+                };
+            } else if (senderCurrency == "EUR") {
+                transaction = {
+                    "amountToSend": Number(amountToSend).toFixed(2),
+                    "currencyToSend": senderCurrency,
+                    "amountToReceive": Number(amountToSend - (3.69 * amountToSend)).toFixed(2),
+                    "currencyToReceive": receiverCurrency,
+                    "transfer_fee": Number(1.38 * amountToSend / 100).toFixed(2),
+                    "converted_amount": Number(0.72 * (amountToSend - (3.69 * amountToSend))).toFixed(2),
+                    "guaranteed_rate": Number(3.69).toFixed(2)
+                };
             }
-        });
+        }
+        setTransaction(transaction);
+        document.getElementById("receivedAmount").value = transaction.converted_amount;
+        document.getElementById("continue1").classList.remove("inactive")
+
+        // let endpoint = "https://data.fixer.io/api/latest?access_key=" + API_KEY + "&base=" + BASE + "&symbols=" + SYMBOL;
+        // axios.get(endpoint).then(res => {
+        //     console.log(res.data);
+        //     console.log("Base Currency: " + BASE)
+        //     if (res.data || res.data.success === true) {
+        //         switch (receiverCurrency) {
+        //             case "USD":
+        //                 transaction = {
+        //                     "amountToSend": Number(amountToSend).toFixed(2),
+        //                     "currencyToSend": senderCurrency,
+        //                     "amountToReceive": Number(amountToSend - (0.369 * amountToSend / 100)).toFixed(2),
+        //                     "currencyToReceive": receiverCurrency,
+        //                     "transfer_fee": Number(0.369 * amountToSend / 100).toFixed(2),
+        //                     "converted_amount": Number(420 * (amountToSend - (0.369 * amountToSend / 100))).toFixed(2),
+        //                     "guaranteed_rate": Number(3.69).toFixed(2)
+        //                 };
+        //                 break;
+        //             case "EUR":
+        //                 transaction = {
+        //                     "amountToSend": amountToSend,
+        //                     "currencyToSend": senderCurrency,
+        //                     "amountToReceive": amountToSend - (0.369 * amountToSend / 100),
+        //                     "currencyToReceive": receiverCurrency,
+        //                     "transfer_fee": 0.369 * amountToSend / 100,
+        //                     "converted_amount": res.data.rates.EUR * amountToSend - (0.369 * amountToSend / 100),
+        //                     "guaranteed_rate": 3.69
+        //                 };
+        //                 break;
+        //             default:
+        //                 break;
+        //         }
+        //         setTransaction(transaction);
+        //         document.getElementById("receivedAmount").value = transaction.converted_amount;
+        //         document.getElementById("continue1").classList.remove("inactive")
+        //     }
+        // });
     }
     const continueHandler = (data, index) => {
         if (index === 0) {
@@ -246,7 +272,7 @@ function FormWrap(props) {
                     props.step === 3
                         ?
                         <>
-                            <button disabled={false} className="w-full h-10 rounded finish__btn mt-5 ..." onClick={async()=>{
+                            <button disabled={false} className="w-full h-10 rounded finish__btn mt-5 ..." onClick={async () => {
                                 await window.localStorage.removeItem("fliqPaymentInfo");
                                 window.location.reload();
                             }}>Confirm & continue</button>
